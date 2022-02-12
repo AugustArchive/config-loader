@@ -23,17 +23,13 @@ type OptionOverloadFunc func(o Options)
 // Options represents the configuration options to use
 // when configuring the config.Loader!
 type Options struct {
-	format       Format
-	automaticEnv bool
-	envPrefix    *string
+	format Format
 }
 
 // NewDefaultOptions creates a new Options object with the default settings.
 func NewDefaultOptions() Options {
 	return Options{
-		format:       JSONFormat,
-		automaticEnv: false,
-		envPrefix:    nil,
+		format: JSONFormat,
 	}
 }
 
@@ -50,14 +46,5 @@ func WithToml() OptionOverloadFunc {
 func WithYAML() OptionOverloadFunc {
 	return func(o Options) {
 		o.format = YAMLFormat
-	}
-}
-
-// AutomaticEnv sets up using Environment Variables as a secondary option
-// if no configuration path was found OR it was found, but can be overwritten.
-func AutomaticEnv(prefix string) OptionOverloadFunc {
-	return func(o Options) {
-		o.automaticEnv = true
-		o.envPrefix = &prefix
 	}
 }
