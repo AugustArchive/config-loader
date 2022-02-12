@@ -1,3 +1,19 @@
+// 💕 config-loader: Minimal and safe way to load in configuration files without any extra boilerplate,
+// made for my own personal usage!
+// Copyright 2022 Noel <cutie@floofy.dev>
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 package config
 
 // Format is a type that determines a configuration format that the config.Loader
@@ -17,10 +33,8 @@ var (
 	// to load and lock in your configuration object.
 	TOMLFormat Format = "TOML"
 
-	// EnvFormat is the configuration format to use environment variables
-	// to load and lock in your configuration object. This can be applied
-	// using the config.AutomaticEnv option
-	EnvFormat Format = "Environment"
+	// NoopFormat is the non-operational format that is used for testing.
+	NoopFormat Format = "no-operation"
 )
 
 // String stringifies a Format variable.
@@ -35,8 +49,8 @@ func (f Format) String() string {
 	case TOMLFormat:
 		return "TOML"
 
-	case EnvFormat:
-		return "Environment"
+	case NoopFormat:
+		return "no-operation"
 
 	default:
 		return "Unknown"
@@ -56,8 +70,8 @@ func (f Format) Extensions() []string {
 	case TOMLFormat:
 		return []string{".toml"}
 
-	case EnvFormat:
-		return []string{".env"}
+	case NoopFormat:
+		return []string{}
 
 	default:
 		return []string{}
